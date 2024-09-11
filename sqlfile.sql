@@ -120,3 +120,7 @@ WHEN student_id=7 THEN '08000000000'
 ELSE contact 
 END
 WHERE student_id IN (3,7)
+
+--DELETE OPEARATION
+DELETE FROM student
+WHERE student_id=7
