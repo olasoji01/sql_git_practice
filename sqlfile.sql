@@ -57,3 +57,66 @@ SELECT *FROM department
 --dropping the unique key under the department table 
 ALTER TABLE department
 DROP CONSTRAINT unique_departmentname
+
+
+CREATE TABLE student(
+student_id INT PRIMARY KEY,
+student_name VARCHAR(50) NOT NULL,
+age INT CHECK(age >=18),
+reg_date DATE DEFAULT GETDATE(),
+department_id INT )
+
+SELECT * FROM student
+
+
+CREATE TABLE department(
+department_id INT PRIMARY KEY,
+department_name VARCHAR(30)
+)
+
+SELECT * FROM department
+ALTER TABLE department
+ADD CONSTRAINT unique_departmentname UNIQUE (department_name)
+
+--Initiating foreign key constrain to department_id in student table
+ALTER TABLE student
+DROP CONSTRAINT [UQ__student__870C3C8B8925D38D]
+
+SELECT * FROM student
+
+-- Drop student table
+DROP TABLE student 
+
+--inserting into the department table 
+INSERT INTO department(department_id,department_name)
+VALUES (1,'computer science'),
+       (2,'mathematics'),
+	   (3,'french')
+
+
+--inserting with default date 
+
+INSERT INTO student(student_id,student_name,age,department_id,contact)
+values(6,'bisi',22,19,080231452434),
+      (7,'ruth',23,11,080231452434),
+	  (8,'sola',29,12,080231452434)
+
+--updating values 
+--multiple values update 
+UPDATE student
+SET department_id=3
+WHERE student_id in (4,5);
+
+--single values update
+UPDATE student
+SET contact='012345678'
+WHERE student_id=2
+
+--use case statemet to update mulitple rows 
+UPDATE student
+SET contact = CASE
+WHEN student_id=3 THEN '08023222608'
+WHEN student_id=7 THEN '08000000000'
+ELSE contact 
+END
+WHERE student_id IN (3,7)
